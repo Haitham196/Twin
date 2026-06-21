@@ -93,7 +93,13 @@ Copy `.env.example` to `.env` and fill in:
 OPENAI_API_KEY=
 ELEVENLABS_API_KEY=
 ELEVENLABS_VOICE_ID=   # From ElevenLabs Instant Voice Clone
+SIMLI_API_KEY=         # From simli.ai (no GPU needed — cloud renders your face)
+SIMLI_FACE_ID=         # From simli.ai after uploading haitham.jpg
 ```
+
+**No GPU on the server?** Use Simli.ai instead of LivePortrait. Simli runs on their cloud GPU;
+you just stream audio → get back animated face video via WebRTC. Free tier: 100 min/month.
+When you add a GPU later, swap in LivePortrait with one file change.
 
 ## Adding Knowledge
 
@@ -108,8 +114,15 @@ The twin picks up new knowledge immediately on the next query (no restart needed
 | Phase | Status | Description |
 |-------|--------|-------------|
 | 1 | ✅ Done | Text chat + canvas avatar + ChromaDB RAG + ElevenLabs TTS |
-| 2 | Next | WebRTC via FastRTC: browser mic/cam → server → animated voice response |
+| 2 | Next | Simli.ai WebRTC: real animated face from photo (no GPU); voice input via Whisper |
 | 3 | Future | MediaPipe vision: presence, eye contact, gesture detection |
 | 4 | Future | SQLite cross-session memory + conversation summaries |
-| 5 | Future | LivePortrait: real photo animation with gaze control |
+| 5 | Future | LivePortrait: replace Simli.ai when GPU available (one file change) |
 | 6 | Future | Agent tools (Freshservice, Teams, Outlook, SharePoint) |
+
+## To Make It More "You" (Twin Quality)
+
+1. **Expand `knowledge_base/haitham_profile.md`** — add your projects, team, daily challenges, AI vision
+2. **Add `knowledge_base/china_trip/` personal notes** — day-by-day observations in your words
+3. **Voice recording tips** — record 1–3 min naturally explaining something at work (quiet room, no echo)
+4. **Photo for Simli.ai** — front-facing, even lighting, plain background, 512×512+
