@@ -55,17 +55,21 @@ export default function AvatarFace({ twinState, amplitude = 0 }: AvatarFaceProps
       ctx.save();
       ctx.translate(driftX, driftY);
 
-      if (img.complete) {
-        // Draw photo scaled to canvas
+      if (img.complete && img.naturalWidth > 0) {
         const aspect = img.naturalWidth / img.naturalHeight;
-        const drawH = h + 10; // slight crop so drift doesn't show edge
+        const drawH = h + 10;
         const drawW = drawH * aspect;
         const x = (w - drawW) / 2;
         ctx.drawImage(img, x, -5, drawW, drawH);
       } else {
-        // Placeholder while image loads
+        // Placeholder: dark background + initials while photo loads or is missing
         ctx.fillStyle = "#1a2332";
         ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = "#334155";
+        ctx.font = `bold ${h * 0.25}px sans-serif`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("H", w / 2, h / 2);
       }
 
       ctx.restore();

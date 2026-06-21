@@ -6,10 +6,8 @@ Phase 2: Voice WebSocket — browser mic → Whisper STT → GPT-4o → ElevenLa
 Phase 3+: WebRTC camera vision, MediaPipe, LivePortrait / Simli.ai.
 """
 
-import asyncio
 import base64
 import json
-import os
 import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
