@@ -1,0 +1,14 @@
+.env
+.env.local
+data/
+assets/haitham.jpg
+assets/voice_sample.mp3
+models/
+__pycache__/
+*.pyc
+.venv/
+venv/
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+*.log
