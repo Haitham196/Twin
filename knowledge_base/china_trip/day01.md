@@ -3,7 +3,9 @@
 
 ---
 
-## SESSION 1: Zhongshan Hospital — National AI Medical Pioneer
+## SESSION 1: Opening — Zhongshan Hospital National AI Medical Pioneer
+
+**Host:** Gu Jianying — Party Secretary, Zhongshan Hospital, Fudan University
 
 **Zhongshan Hospital Overview:**
 - Founded 1937, affiliated with Fudan University
@@ -131,7 +133,7 @@ The sepsis early warning is the one that matters most for us. We lose patients t
 
 ## SESSION 5: Smart Hospital Tour — AI in Practice
 
-**Host:** Zhongshan Hospital IT Director + Clinical AI Team
+**Host:** Wang Zhixun — Director, Planning and Management Centre, Department of Information and Intelligent Development, Zhongshan Hospital, Fudan University
 
 **What We Saw (Walking Tour):**
 
@@ -169,9 +171,9 @@ The shift from 20 registration staff to 1 was the visual punch. That's not effic
 
 ---
 
-## SESSION 6: Prof. Liu — Medical AI Research Infrastructure
+## SESSION 6: Liu Lei — Medical AI Research Infrastructure
 
-**Presenter:** Prof. Liu, Director of AI Medical Center, Fudan University
+**Presenter:** Liu Lei — Executive Vice-Dean, Institute of Intelligent Medicine, Fudan University
 
 **Research Infrastructure:**
 - **1,200 A100 GPUs** in dedicated medical AI compute cluster
@@ -204,9 +206,9 @@ The shift from 20 registration staff to 1 was the visual punch. That's not effic
 
 ---
 
-## SESSION 7: Prof. Yinhong Shi — Big Data at Clinical Scale
+## SESSION 7: Shi Yinghong — Big Data at Clinical Scale
 
-**Presenter:** Prof. Yinhong Shi, Fudan University School of Public Health
+**Presenter:** Shi Yinghong — Deputy Director, Zhongshan Hospital, Fudan University
 
 **Dataset Overview:**
 - **29 billion** patient encounter records
