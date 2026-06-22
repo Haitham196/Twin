@@ -142,8 +142,8 @@ export default function AvatarFace({ twinState, amplitude = 0 }: AvatarFaceProps
     <canvas
       ref={canvasRef}
       width={480}
-      height={560}
-      className="rounded-full object-cover shadow-2xl"
+      height={480}
+      className="rounded-full object-cover shadow-2xl w-full h-full"
       style={{ background: "#0f172a" }}
     />
   );

@@ -109,54 +109,65 @@ export default function Home() {
   }, [messages, currentResponse]);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex">
+    <div className="h-screen bg-slate-950 text-white flex overflow-hidden">
       {!userName && <UserOnboarding onComplete={handleOnboardingComplete} />}
 
-      {/* Left sidebar */}
-      <aside className="hidden lg:flex flex-col w-56 border-r border-slate-800 p-5 gap-4 shrink-0">
-        <div className="text-xs text-slate-600 font-mono">HAITHAM AI</div>
+      {/* Left sidebar — desktop only */}
+      <aside className="hidden lg:flex flex-col w-52 border-r border-slate-800 p-4 gap-4 shrink-0">
+        <div className="text-xs text-slate-600 font-mono">KNOWLEDGE BASE</div>
         <KnowledgePanel />
-        <div className="mt-auto text-xs text-slate-600">
-          {isConnected ? "🟢 Connected" : "🔴 Connecting..."}
-        </div>
-        {SIMLI_ENABLED && (
+        <div className="mt-auto flex flex-col gap-1">
           <div className="text-xs text-slate-600">
-            {simliReady ? "🎭 Simli ready" : "🎭 Simli loading..."}
+            {isConnected ? "🟢 Connected" : "🔴 Connecting..."}
           </div>
-        )}
+          {SIMLI_ENABLED && (
+            <div className="text-xs text-slate-600">
+              {simliReady ? "🎭 Simli ready" : "🎭 Simli loading..."}
+            </div>
+          )}
+        </div>
       </aside>
 
-      {/* Center */}
-      <main className="flex-1 flex flex-col items-center py-8 px-4 gap-6">
-        <div className="flex flex-col items-center gap-1">
-          <h1 className="text-xl font-bold tracking-tight">Haitham AI</h1>
+      {/* Center — full height flex column */}
+      <main className="flex-1 flex flex-col items-center overflow-hidden">
+
+        {/* Header */}
+        <div className="flex flex-col items-center gap-1 pt-4 pb-2 shrink-0">
+          <h1 className="text-lg font-bold tracking-tight">Haitham AI</h1>
           <p className="text-xs text-slate-500">Healthcare IT Agent · China Medical AI</p>
           <StatusBadge state={twinState as TwinState} />
         </div>
 
-        {/* Avatar — Simli video if configured, canvas otherwise */}
-        <div className="relative">
-          {SIMLI_ENABLED ? (
-            <AvatarStream
-              twinState={twinState as TwinState}
-              videoRef={simliVideoRef}
-              audioRef={simliAudioRef}
-            />
-          ) : (
-            <>
-              <AvatarFace twinState={twinState as TwinState} amplitude={amplitude} />
-              <div
-                className={`absolute inset-0 rounded-full pointer-events-none transition-opacity duration-500 ${
-                  twinState === "speaking" ? "opacity-100" : "opacity-0"
-                }`}
-                style={{ boxShadow: "0 0 60px 20px rgba(168,85,247,0.25)" }}
+        {/* Avatar — responsive size */}
+        <div className="relative shrink-0 my-2">
+          <div className="w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72">
+            {SIMLI_ENABLED ? (
+              <AvatarStream
+                twinState={twinState as TwinState}
+                videoRef={simliVideoRef}
+                audioRef={simliAudioRef}
               />
-            </>
-          )}
+            ) : (
+              <>
+                <AvatarFace twinState={twinState as TwinState} amplitude={amplitude} />
+                <div
+                  className={`absolute inset-0 rounded-full pointer-events-none transition-opacity duration-500 ${
+                    twinState === "speaking" ? "opacity-100" : "opacity-0"
+                  }`}
+                  style={{ boxShadow: "0 0 60px 20px rgba(168,85,247,0.25)" }}
+                />
+              </>
+            )}
+          </div>
         </div>
 
-        {/* Chat history */}
-        <div className="w-full max-w-xl flex flex-col gap-3 flex-1 overflow-y-auto max-h-64">
+        {/* Mobile status row */}
+        <div className="flex lg:hidden items-center gap-3 text-xs text-slate-600 mb-1">
+          <span>{isConnected ? "🟢 Connected" : "🔴 Connecting..."}</span>
+        </div>
+
+        {/* Chat history — fills remaining space */}
+        <div className="flex-1 w-full max-w-xl px-4 overflow-y-auto flex flex-col gap-2 py-2">
           {messages.map((m, i) => {
             if (m.role === "transcript") {
               return (
@@ -170,7 +181,7 @@ export default function Home() {
             return (
               <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div
-                  className={`max-w-sm px-4 py-2.5 rounded-2xl text-sm ${
+                  className={`max-w-xs sm:max-w-sm px-4 py-2.5 rounded-2xl text-sm ${
                     m.role === "user"
                       ? "bg-blue-600 text-white rounded-br-none"
                       : "bg-slate-800 text-slate-100 rounded-bl-none"
@@ -183,7 +194,7 @@ export default function Home() {
           })}
           {currentResponse && (
             <div className="flex justify-start">
-              <div className="max-w-sm px-4 py-2.5 rounded-2xl text-sm bg-slate-800 text-slate-300 rounded-bl-none opacity-80">
+              <div className="max-w-xs sm:max-w-sm px-4 py-2.5 rounded-2xl text-sm bg-slate-800 text-slate-300 rounded-bl-none opacity-80">
                 {currentResponse}
                 <span className="animate-pulse">▌</span>
               </div>
@@ -192,8 +203,8 @@ export default function Home() {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input area */}
-        <div className="w-full max-w-xl mt-auto flex gap-3 items-end">
+        {/* Input area — pinned to bottom */}
+        <div className="w-full max-w-xl px-4 pb-4 pt-2 shrink-0 flex gap-2 items-end border-t border-slate-800/50">
           <div className="flex-1">
             <ChatInput
               onSend={handleSend}
@@ -213,8 +224,8 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Right sidebar */}
-      <aside className="hidden xl:flex w-56 border-l border-slate-800 p-5 flex-col gap-4 shrink-0">
+      {/* Right sidebar — desktop only */}
+      <aside className="hidden xl:flex w-52 border-l border-slate-800 p-4 flex-col gap-4 shrink-0">
         <div className="text-xs text-slate-600 font-mono">PROJECTS</div>
         <div className="flex flex-col gap-2 text-sm text-slate-400">
           <div className="bg-slate-800/50 rounded-lg px-3 py-2">🤖 AI Projects</div>
