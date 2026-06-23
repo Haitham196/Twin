@@ -32,7 +32,7 @@ export default function AvatarFace({ twinState, amplitude = 0 }: AvatarFaceProps
     const ctx = canvas.getContext("2d")!;
 
     const img = new Image();
-    img.src = "/haitham.jpg";
+    img.src = "/api/assets/haitham.jpg";
     imgRef.current = img;
 
     let blinkState = 0;          // 0=open, 1=closing, 2=opening

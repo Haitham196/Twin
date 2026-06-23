@@ -16,19 +16,17 @@ const ringColor: Record<TwinState, string> = {
   speaking: "rgba(168,85,247,0.9)",
 };
 
-const SIZE = 480;
-
 export default function AvatarStream({ twinState, videoRef, audioRef }: AvatarStreamProps) {
   return (
-    <div className="relative" style={{ width: SIZE, height: SIZE }}>
+    <div className="relative w-full h-full">
       {/* Simli video */}
       <video
         ref={videoRef}
         autoPlay
         playsInline
         muted={false}
-        className="rounded-full shadow-2xl object-cover"
-        style={{ width: SIZE, height: SIZE, background: "#0f172a" }}
+        className="rounded-full shadow-2xl object-cover w-full h-full"
+        style={{ background: "#0f172a" }}
       />
       {/* Simli audio (Simli renders voice here, not via browser AudioContext) */}
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
@@ -44,15 +42,14 @@ export default function AvatarStream({ twinState, videoRef, audioRef }: AvatarSt
 
       {/* State ring */}
       <svg
-        className="absolute inset-0 pointer-events-none"
-        width={SIZE}
-        height={SIZE}
+        className="absolute inset-0 pointer-events-none w-full h-full"
+        viewBox="0 0 480 480"
         style={{ top: 0, left: 0 }}
       >
         <circle
-          cx={SIZE / 2}
-          cy={SIZE / 2}
-          r={SIZE / 2 - 4}
+          cx={240}
+          cy={240}
+          r={236}
           fill="none"
           stroke={ringColor[twinState]}
           strokeWidth={3}

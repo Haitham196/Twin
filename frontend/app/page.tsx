@@ -141,7 +141,7 @@ export default function Home() {
         {/* Avatar — responsive size */}
         <div className="relative shrink-0 my-2">
           <div className="w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72">
-            {SIMLI_ENABLED ? (
+            {SIMLI_ENABLED && simliReady ? (
               <AvatarStream
                 twinState={twinState as TwinState}
                 videoRef={simliVideoRef}

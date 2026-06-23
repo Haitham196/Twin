@@ -16,6 +16,7 @@ from typing import Optional
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -239,3 +240,9 @@ async def ws_chat(websocket: WebSocket):
 
     except WebSocketDisconnect:
         pass
+
+
+# ── Static assets (avatar photo served to frontend) ───────────────────────
+_assets_dir = Path(__file__).parent.parent / "assets"
+if _assets_dir.exists():
+    app.mount("/api/assets", StaticFiles(directory=str(_assets_dir)), name="assets")
