@@ -149,10 +149,11 @@ async def _stream_response(
 
     # Build done payload
     done: dict = {"type": "done", "full": full_text}
-    if include_audio and settings.elevenlabs_api_key and settings.elevenlabs_voice_id:
+    if include_audio:
         try:
             audio_bytes = await text_to_speech(full_text)
-            done["audio_base64"] = base64.b64encode(audio_bytes).decode()
+            if audio_bytes:
+                done["audio_base64"] = base64.b64encode(audio_bytes).decode()
         except Exception:
             pass
 
@@ -204,7 +205,10 @@ async def ws_chat(websocket: WebSocket):
                     continue
                 want_tts = bool(msg.get("tts", False))
                 await websocket.send_text(json.dumps({"type": "state", "state": "thinking"}))
-                await _stream_response(websocket, text, session_id, user_name, include_audio=want_tts)
+                try:
+                    await _stream_response(websocket, text, session_id, user_name, include_audio=want_tts)
+                except Exception as exc:
+                    await websocket.send_text(json.dumps({"type": "error", "message": str(exc)}))
 
             # ── voice chat ─────────────────────────────────────────────
             elif action == "voice":
@@ -226,9 +230,12 @@ async def ws_chat(websocket: WebSocket):
                     continue
 
                 await websocket.send_text(json.dumps({"type": "transcript", "text": transcript}))
-                await _stream_response(
-                    websocket, transcript, session_id, user_name, include_audio=True
-                )
+                try:
+                    await _stream_response(
+                        websocket, transcript, session_id, user_name, include_audio=True
+                    )
+                except Exception as exc:
+                    await websocket.send_text(json.dumps({"type": "error", "message": str(exc)}))
 
     except WebSocketDisconnect:
         pass

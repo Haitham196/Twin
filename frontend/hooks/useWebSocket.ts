@@ -54,6 +54,9 @@ export function useTwinWS(
 
     socket.onclose = () => {
       setIsConnected(false);
+      setTwinState("idle");
+      bufferRef.current = [];
+      setCurrentResponse("");
       // Auto-reconnect after 3 s
       reconnectTimer.current = setTimeout(connect, 3000);
     };

@@ -98,10 +98,11 @@ else
     [ -z "$OPENAI_KEY" ] && err "OpenAI key is required."
 
     SERVER_IP=$(curl -s ifconfig.me 2>/dev/null || echo "162.35.161.123")
+    NIPIO_DOMAIN="${SERVER_IP}.nip.io"
 
-    echo "Enter your Simli API key (from simli.com dashboard):"
+    echo "Enter your Simli API key (from simli.com dashboard, or press Enter to skip):"
     read -r SIMLI_API_KEY
-    echo "Enter your Simli Face ID:"
+    echo "Enter your Simli Face ID (or press Enter to skip):"
     read -r SIMLI_FACE_ID
 
     cat > "$APP_DIR/.env" << ENVEOF
@@ -126,11 +127,11 @@ DB_PATH=./data/conversations.db
 # ── Server ────────────────────────────────────────────────────────────────────
 HOST=0.0.0.0
 PORT=8000
-FRONTEND_URL=http://${SERVER_IP}:3000
+FRONTEND_URL=https://${NIPIO_DOMAIN}
 
 # ── Frontend URLs (used as Docker build args) ─────────────────────────────────
-NEXT_PUBLIC_WS_URL=ws://${SERVER_IP}:8000/ws/chat
-NEXT_PUBLIC_API_URL=http://${SERVER_IP}:8000
+NEXT_PUBLIC_WS_URL=wss://${NIPIO_DOMAIN}/ws/chat
+NEXT_PUBLIC_API_URL=https://${NIPIO_DOMAIN}
 NEXT_PUBLIC_SIMLI_API_KEY=${SIMLI_API_KEY}
 NEXT_PUBLIC_SIMLI_FACE_ID=${SIMLI_FACE_ID}
 ENVEOF
